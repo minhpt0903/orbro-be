@@ -1,0 +1,45 @@
+Bài 1: Xử lý tiếp nhận LogTag và thực hiện mô phỏng Simulator (90 phút)
+- Cần tạo dữ liệu theo định dạng sau bằng phương thức giả lập (Simulation):
+ TAG,<tag_id>,<cnt>,<timestamp>
+ Ví dụ: TAG,fa451f0755d8,197,20240503140059.456
+- Triển khai sử dụng tối thiểu 3 Tag ID và CNT tăng một cách định kỳ
+- Chương trình xử lý tiếp nhận cần thực hiện các chức năng sau:
+○ Lưu trữ CNT cuối cùng và thời gian nhận của mỗi Tag
+○ Xuất log (log output) khi CNT thay đổi - Simulator có thể được triển khai tự do dựa trên việc xuất file (file output), xuất
+chuẩn (standard output) hoặc Socket
+______________________________________________
+
+Bài 2: Triển khai Server REST API (60 phút)
+- Triển khai các API sau:
+POST /tags: Đăng ký Tag (id, description)
+GET /tags: Lấy danh sách Tag đã đăng ký và tra cứu trạng thái
+GET /tag/{id}: Tra cứu trạng thái của một Tag (single Tag)
+GET /health: Kiểm tra trạng thái hệ thống
+- Chỉ những Tag đã đăng ký mới được quản lý trạng thái, và thông tin trạng thái
+sẽ được cập nhật từ Bài tập 1. - Ví dụ thông tin Tag:
+{ "id": "fa451f0755d8", "description": "Helmet Tag for worker A", "last_cnt": 198,
+"last_seen": "2024-05-03T14:00:59.456" }
+
+______________________________________________
+
+Bài 3: Review cấu trúc bộ nhớ và Đề xuất phương án cải thiện (30 phút)
+● Xem đoạn code sau, chỉ ra ít nhất 2 vấn đề và mô tả phương pháp cải thiện:
+tag_log = []
+def log(tag_id, cnt, timestamp):
+ tag_log.append((tag_id, cnt, timestamp))
+● Bài tập tùy chọn: Mở rộng tích hợp SQLite (30 phút)
+- Lưu trữ thông tin nhận được của Tag vào SQLite DB
+- Thay đổi API /tags và /tag/{id} để hoạt động dựa trên DB
+● Hướng dẫn nộp bài - Phương thức nộp bài: GitHub Repository hoặc file `.zip` - Ví dụ cấu trúc file nộp bài:
+project_name/
+├── main.py
+├── parser.py
+├── api.py
+├── db.py (nếu làm Bài tập tùy chọn)
+├── tag_simulator.py (do ứng viên tự tạo)
+├── requirements.txt
+└── README.md
+ File README.md bắt buộc bao gồm các mục sau:
+● Thiết lập môi trường và phương pháp thực thi
+● Giải thích phương thức giả lập (simulation) Tag
+● Ví dụ về phương pháp kiểm thử (test) API (ví dụ: lệnh curl)
